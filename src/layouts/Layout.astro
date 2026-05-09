@@ -1,0 +1,107 @@
+---
+import "../styles/global.css";
+import { getLocaleFromUrl, localeDirection, type Locale } from "../i18n";
+
+interface Props {
+	title: string;
+	description?: string;
+	locale?: Locale;
+}
+
+const { title, description = "Academ — connect with verified tutors and learn at your own pace.", locale: localeProp } = Astro.props;
+const locale = localeProp ?? getLocaleFromUrl(Astro.url.pathname);
+const dir = localeDirection[locale];
+---
+
+<!doctype html>
+<html lang={locale} dir={dir}>
+	<head>
+		<meta charset="utf-8" />
+		<!-- Inline boot script: applies the dark class synchronously, before any
+		     content paints, to avoid a flash of light theme. Mirrors the logic
+		     in components/DarkModeToggle.astro. Same `darkMode` localStorage
+		     key as the Academ app for cross-domain consistency if you choose
+		     to share it later. -->
+		<script is:inline>
+			(function () {
+				try {
+					var stored = localStorage.getItem("darkMode");
+					var prefers = window.matchMedia("(prefers-color-scheme: dark)").matches;
+					var isDark = stored === "true" || (stored === null && prefers);
+					if (isDark) document.documentElement.classList.add("dark");
+				} catch (e) {}
+			})();
+		</script>
+		<style is:inline>
+			html { background: #ffffff; }
+			html.dark { background: #0a0a0a; color-scheme: dark; }
+		</style>
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="alternate icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" href="/icon512_rounded.png" />
+		<link rel="sitemap" href="/sitemap-index.xml" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content={description} />
+		<meta name="theme-color" content="#a855f7" />
+		<meta name="generator" content={Astro.generator} />
+
+		<!-- Open Graph / social -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={Astro.url.href} />
+		<meta property="og:image" content={new URL("/icon512_rounded.png", Astro.site).href} />
+		<meta property="og:locale" content={locale} />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+
+		<title>{title}</title>
+	</head>
+	<body class="antialiased">
+		<slot />
+	</body>
+
+	<style is:global>
+		body {
+			background: var(--surface-page);
+			color: var(--text-primary);
+		}
+	</style>
+	<script>
+		function initScrollAnimations() {
+			document.documentElement.classList.add("js-ready");
+
+			const els = document.querySelectorAll("[data-animate]");
+			els.forEach((el) => {
+				const delay = el.getAttribute("data-delay");
+				if (delay) (el as HTMLElement).style.setProperty("--delay", `${delay}ms`);
+			});
+
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add("in-view");
+							observer.unobserve(entry.target);
+						}
+					});
+				},
+				{ threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
+			);
+
+			els.forEach((el) => observer.observe(el));
+		}
+
+		document.addEventListener("DOMContentLoaded", initScrollAnimations);
+		document.addEventListener("astro:page-load", initScrollAnimations);
+	</script>
+</html>

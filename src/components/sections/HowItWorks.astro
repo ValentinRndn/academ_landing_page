@@ -1,0 +1,433 @@
+---
+import { useTranslations, type Locale } from "../../i18n";
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<section id="how-it-works" class="how">
+	<div class="how__bg" aria-hidden="true">
+		<div class="how__blob how__blob--purple"></div>
+		<div class="how__blob how__blob--pink"></div>
+	</div>
+
+	<div class="how__container">
+		<div class="how__header" data-animate>
+			<span class="how__pill badge-glass-primary">
+				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+				</svg>
+				{t("landing.howItWorksTitle")}
+			</span>
+			<h2 class="how__title">
+				{t("landing.learningMadeSimple")}<br />
+				<span class="how__title-accent">{t("landing.resultsMadeReal")}</span>
+			</h2>
+			<p class="how__subtitle">{t("landing.howItWorksSubtitle")}</p>
+		</div>
+
+		<div class="how__grid">
+			<!-- Card 1 — Sign up -->
+			<div class="how__card glass" data-animate data-delay="0">
+				<div class="how__card-head">
+					<div class="how__card-icon glass-primary">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+							<circle cx="8.5" cy="7" r="4"></circle>
+							<line x1="20" y1="8" x2="20" y2="14"></line>
+							<line x1="23" y1="11" x2="17" y2="11"></line>
+						</svg>
+					</div>
+					<div>
+						<h3 class="how__card-title">{t("landing.signUpCustomize")}</h3>
+						<p class="how__card-desc">{t("landing.signUpCustomizeDesc")}</p>
+					</div>
+				</div>
+
+				<!-- Mini stat preview -->
+				<div class="how__preview glass-card">
+					<div class="how__preview-row">
+						<div class="how__preview-icon">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+								<circle cx="9" cy="7" r="4"></circle>
+								<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+								<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+							</svg>
+						</div>
+						<span class="how__preview-label">{t("landing.totalUsers")}</span>
+					</div>
+					<div class="how__preview-stat">
+						<span class="how__preview-number">20K+</span>
+						<span class="how__preview-tag">Users</span>
+					</div>
+					<div class="how__preview-rows">
+						<div class="how__preview-line">
+							<span>{t("landing.monthlyUsers")}</span>
+							<strong>1K+</strong>
+						</div>
+						<div class="how__preview-line">
+							<span>{t("landing.yearlyUsers")}</span>
+							<strong>10K+</strong>
+						</div>
+					</div>
+					<div class="how__preview-avatars">
+						<div class="how__avatar how__avatar--1"></div>
+						<div class="how__avatar how__avatar--2"></div>
+						<div class="how__avatar how__avatar--3"></div>
+						<div class="how__avatar how__avatar--more">+5</div>
+						<span class="how__preview-active">{t("landing.activeNow")}</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Card 2 — Connect -->
+			<div class="how__card glass" data-animate data-delay="150">
+				<div class="how__card-head">
+					<div class="how__card-icon glass-primary">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+							<path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+						</svg>
+					</div>
+					<div>
+						<h3 class="how__card-title">{t("landing.connectWithExperts")}</h3>
+						<p class="how__card-desc">{t("landing.connectWithExpertsDesc")}</p>
+					</div>
+				</div>
+
+				<div class="how__preview glass-card">
+					<div class="how__connect">
+						<div class="how__connect-side">
+							<div class="how__connect-bubble glass-primary">T</div>
+							<span>{t("landing.teacher")}</span>
+						</div>
+						<div class="how__connect-link">
+							<div class="how__connect-line"></div>
+							<div class="how__connect-icon glass-primary">
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+								</svg>
+							</div>
+							<div class="how__connect-line"></div>
+						</div>
+						<div class="how__connect-side">
+							<div class="how__connect-bubble">S</div>
+							<span>{t("landing.student")}</span>
+						</div>
+					</div>
+					<div class="how__connect-meta">
+						<span>{t("landing.integrationsWithPlatforms")}</span>
+						<strong>20+</strong>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.how {
+		position: relative;
+		padding: var(--spacing-section-y) var(--spacing-section-x);
+		overflow: hidden;
+	}
+
+	.how__bg { position: absolute; inset: 0; pointer-events: none; z-index: -1; }
+
+	.how__blob {
+		position: absolute;
+		border-radius: 50%;
+		filter: blur(120px);
+	}
+
+	.how__blob--purple {
+		top: -10%;
+		right: -10%;
+		width: 600px;
+		height: 500px;
+		background: var(--color-primary-500);
+		opacity: 0.2;
+	}
+
+	.how__blob--pink {
+		bottom: 10%;
+		left: -8%;
+		width: 480px;
+		height: 380px;
+		background: var(--color-secondary-400);
+		opacity: 0.15;
+	}
+
+	.how__container { max-width: 80rem; margin: 0 auto; }
+
+	.how__header { text-align: center; margin-bottom: 4rem; }
+
+	.how__pill {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.5rem 1rem;
+		border-radius: var(--radius-full);
+		font-size: var(--text-sm);
+		font-weight: var(--font-medium);
+		color: var(--color-primary-700);
+		margin-bottom: 1.5rem;
+	}
+
+	.how__title {
+		font-size: clamp(2rem, 1.5rem + 2.5vw, 3.25rem);
+		font-weight: var(--font-bold);
+		color: var(--color-gray-900);
+		margin: 0 0 1rem;
+		line-height: 1.2;
+	}
+
+	.how__title-accent { color: var(--color-primary-600); }
+
+	.how__subtitle {
+		font-size: var(--text-lg);
+		color: var(--color-gray-500);
+		max-width: 36rem;
+		margin: 0 auto;
+	}
+
+	.how__grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 2rem;
+	}
+
+	@media (min-width: 768px) {
+		.how__grid { grid-template-columns: 1fr 1fr; }
+	}
+
+	.how__card {
+		padding: 2rem;
+		border-radius: var(--radius-2xl);
+		transition: box-shadow var(--transition-slow);
+	}
+
+	.how__card:hover { box-shadow: var(--shadow-xl); }
+
+	.how__card-head {
+		display: flex;
+		gap: 1rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.how__card-icon {
+		width: 3rem;
+		height: 3rem;
+		border-radius: var(--radius-xl);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--color-primary-600);
+		flex-shrink: 0;
+	}
+
+	.how__card-title {
+		font-size: 1.15rem;
+		font-weight: var(--font-bold);
+		color: var(--color-gray-900);
+		margin: 0 0 0.25rem;
+	}
+
+	.how__card-desc {
+		font-size: var(--text-sm);
+		color: var(--color-gray-600);
+		margin: 0;
+	}
+
+	.how__preview {
+		padding: 1.25rem;
+		border-radius: var(--radius-xl);
+	}
+
+	.how__preview-row {
+		display: flex;
+		align-items: center;
+		gap: 0.625rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.how__preview-icon {
+		width: 2.25rem;
+		height: 2.25rem;
+		border-radius: var(--radius-md);
+		background: var(--color-primary-100);
+		color: var(--color-primary-600);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.how__preview-label {
+		font-size: var(--text-sm);
+		font-weight: var(--font-semibold);
+		color: var(--color-gray-900);
+	}
+
+	.how__preview-stat {
+		display: flex;
+		align-items: baseline;
+		gap: 0.5rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.how__preview-number {
+		font-size: 1.875rem;
+		font-weight: var(--font-bold);
+		color: var(--color-gray-900);
+	}
+
+	.how__preview-tag {
+		font-size: 0.75rem;
+		font-weight: var(--font-medium);
+		color: var(--color-primary-600);
+		background: var(--color-primary-50);
+		padding: 0.125rem 0.5rem;
+		border-radius: var(--radius-full);
+	}
+
+	.how__preview-rows {
+		display: flex;
+		flex-direction: column;
+		gap: 0.375rem;
+		margin-bottom: 1rem;
+	}
+
+	.how__preview-line {
+		display: flex;
+		justify-content: space-between;
+		font-size: 0.75rem;
+		color: var(--color-gray-500);
+	}
+
+	.how__preview-line strong {
+		color: var(--color-gray-900);
+		background: rgba(255, 255, 255, 0.6);
+		padding: 0.125rem 0.5rem;
+		border-radius: var(--radius-md);
+		font-weight: var(--font-semibold);
+	}
+
+	.how__preview-avatars {
+		display: flex;
+		align-items: center;
+		gap: 0.625rem;
+		padding-top: 0.75rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.5);
+	}
+
+	.how__avatar {
+		width: 2rem;
+		height: 2rem;
+		border-radius: var(--radius-full);
+		border: 2px solid rgba(255, 255, 255, 0.85);
+		margin-left: -0.375rem;
+		box-shadow: var(--shadow-sm);
+	}
+
+	.how__avatar:first-child { margin-left: 0; }
+	.how__avatar--1 { background: linear-gradient(135deg, var(--color-primary-400), var(--color-primary-600)); }
+	.how__avatar--2 { background: linear-gradient(135deg, var(--color-primary-300), var(--color-primary-500)); }
+	.how__avatar--3 { background: linear-gradient(135deg, #c084fc, #7e22ce); }
+
+	.how__avatar--more {
+		background: rgba(255, 255, 255, 0.85);
+		color: var(--color-gray-700);
+		font-size: 0.65rem;
+		font-weight: var(--font-bold);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.how__preview-active {
+		font-size: 0.75rem;
+		color: var(--color-gray-500);
+		margin-left: 0.25rem;
+	}
+
+	/* Connect preview */
+	.how__connect {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+	}
+
+	.how__connect-side {
+		text-align: center;
+	}
+
+	.how__connect-side span {
+		display: block;
+		margin-top: 0.5rem;
+		font-size: 0.75rem;
+		font-weight: var(--font-medium);
+		color: var(--color-gray-600);
+	}
+
+	.how__connect-bubble {
+		width: 3.5rem;
+		height: 3.5rem;
+		border-radius: var(--radius-xl);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.25rem;
+		font-weight: var(--font-bold);
+		color: var(--color-primary-600);
+	}
+
+	.how__connect-bubble:not(.glass-primary) {
+		background: rgba(255, 255, 255, 0.65);
+		backdrop-filter: blur(16px);
+		color: var(--color-gray-700);
+	}
+
+	.how__connect-link {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+	}
+
+	.how__connect-line {
+		width: 1.5rem;
+		height: 2px;
+		background: linear-gradient(to right, var(--color-primary-300), var(--color-primary-400));
+	}
+
+	.how__connect-icon {
+		width: 2.75rem;
+		height: 2.75rem;
+		border-radius: var(--radius-lg);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--color-primary-600);
+	}
+
+	.how__connect-meta {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-top: 1.25rem;
+		padding-top: 1rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.5);
+		font-size: var(--text-sm);
+		color: var(--color-gray-500);
+	}
+
+	.how__connect-meta strong {
+		color: var(--color-primary-600);
+		font-weight: var(--font-bold);
+	}
+</style>

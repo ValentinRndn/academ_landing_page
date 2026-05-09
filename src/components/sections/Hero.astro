@@ -1,0 +1,586 @@
+---
+import { useTranslations, type Locale } from "../../i18n";
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const APP_URL = "https://app.academ.my";
+---
+
+<section class="hero">
+	<!-- Background blobs -->
+	<div class="hero__bg" aria-hidden="true">
+		<div class="hero__blob hero__blob--purple"></div>
+		<div class="hero__blob hero__blob--pink"></div>
+		<div class="hero__blob hero__blob--violet"></div>
+		<div class="hero__blob hero__blob--fuchsia"></div>
+	</div>
+
+	<div class="hero__container">
+		<!-- Badge -->
+		<span class="hero__badge badge-glass-primary" data-animate data-delay="0">
+			<svg class="hero__badge-icon" width="16" height="16" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+				<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+			</svg>
+			{t("landing.bestPlatform")}
+		</span>
+
+		<!-- Title -->
+		<h1 class="hero__title" data-animate data-delay="100">
+			<span class="hero__title-line">{t("landing.enhanceLearning")}</span>
+			<span class="hero__title-line">
+				{t("landing.with")}
+				<span class="hero__title-brand badge-glass-primary">Academ</span>
+			</span>
+		</h1>
+
+		<!-- Subtitle -->
+		<p class="hero__subtitle" data-animate data-delay="200">
+			{t("landing.subtitle")}
+		</p>
+
+		<!-- CTA -->
+		<div class="hero__cta" data-animate data-delay="300">
+			<a href={`${APP_URL}/register`} class="btn-glass-primary btn-glass-primary--lg">
+				{t("landing.getStarted")}
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<line x1="5" y1="12" x2="19" y2="12"></line>
+					<polyline points="12 5 19 12 12 19"></polyline>
+				</svg>
+			</a>
+			<a href={`${APP_URL}/login`} class="btn-glass btn-glass--lg">
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<polygon points="5 3 19 12 5 21 5 3"></polygon>
+				</svg>
+				{t("landing.watchDemo")}
+			</a>
+		</div>
+
+		<!-- Floating preview cards -->
+		<div class="hero__preview" data-animate data-delay="500">
+			<!-- Left card: Progress -->
+			<div class="hero__card hero__card--left glass" data-animate data-delay="700">
+				<div class="hero__card-header">
+					<div class="hero__card-icon hero__card-icon--purple">
+						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<line x1="18" y1="20" x2="18" y2="10"></line>
+							<line x1="12" y1="20" x2="12" y2="4"></line>
+							<line x1="6" y1="20" x2="6" y2="14"></line>
+						</svg>
+					</div>
+					<span class="hero__card-title">{t("landing.progress")}</span>
+				</div>
+				<div class="hero__card-row">
+					<span class="hero__card-label">{t("landing.mathematics")}</span>
+					<span class="hero__card-value">85%</span>
+				</div>
+				<div class="hero__card-bar"><div class="hero__card-bar-fill" style="width: 85%"></div></div>
+				<div class="hero__card-row">
+					<span class="hero__card-label">{t("landing.physics")}</span>
+					<span class="hero__card-value">72%</span>
+				</div>
+				<div class="hero__card-bar"><div class="hero__card-bar-fill" style="width: 72%"></div></div>
+			</div>
+
+			<!-- Phone mockup -->
+			<div class="hero__phone">
+				<div class="hero__phone-frame">
+					<div class="hero__phone-island"></div>
+					<div class="hero__phone-screen">
+						<div class="hero__app">
+							<div class="hero__app-header">
+								<div class="hero__app-logo">A</div>
+								<span class="hero__app-name">Academ</span>
+							</div>
+							<div class="hero__app-greeting">
+								<p>Welcome back,</p>
+								<h3>Sarah Johnson</h3>
+							</div>
+							<div class="hero__app-stats">
+								<div class="hero__app-stat hero__app-stat--primary">
+									<span>Courses</span>
+									<strong>12</strong>
+								</div>
+								<div class="hero__app-stat">
+									<span>Hours</span>
+									<strong>48</strong>
+								</div>
+							</div>
+							<div class="hero__app-section-title">{t("mockup.recentSessions")}</div>
+							<div class="hero__app-row">
+								<div class="hero__app-row-icon">📐</div>
+								<div class="hero__app-row-text">
+									<strong>{t("landing.mathematics")}</strong>
+									<span>Dr. John Doe</span>
+								</div>
+								<span class="hero__app-row-time">+2h</span>
+							</div>
+							<div class="hero__app-row">
+								<div class="hero__app-row-icon">⚛️</div>
+								<div class="hero__app-row-text">
+									<strong>{t("landing.physics")}</strong>
+									<span>Dr. Marie Dupont</span>
+								</div>
+								<span class="hero__app-row-time">+1.5h</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="hero__phone-glow" aria-hidden="true"></div>
+			</div>
+
+			<!-- Right card: Next session -->
+			<div class="hero__card hero__card--right glass" data-animate data-delay="900">
+				<div class="hero__card-header">
+					<div class="hero__card-icon hero__card-icon--green">
+						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+							<line x1="16" y1="2" x2="16" y2="6"></line>
+							<line x1="8" y1="2" x2="8" y2="6"></line>
+							<line x1="3" y1="10" x2="21" y2="10"></line>
+						</svg>
+					</div>
+					<span class="hero__card-title">{t("landing.nextSession")}</span>
+				</div>
+				<div class="hero__card-session">
+					<div class="hero__card-avatar">JD</div>
+					<div>
+						<strong>Dr. John Doe</strong>
+						<span>{t("landing.mathematics")}</span>
+					</div>
+				</div>
+				<div class="hero__card-pill">
+					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<circle cx="12" cy="12" r="10"></circle>
+						<polyline points="12 6 12 12 16 14"></polyline>
+					</svg>
+					<span>{t("landing.today")}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.hero {
+		position: relative;
+		min-height: 95vh;
+		padding: 8rem var(--spacing-section-x) 4rem;
+		overflow: hidden;
+		isolation: isolate;
+	}
+
+	.hero__bg {
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		pointer-events: none;
+		overflow: hidden;
+	}
+
+	.hero__blob {
+		position: absolute;
+		border-radius: 50%;
+		filter: blur(110px);
+		opacity: 0.5;
+	}
+
+	.hero__blob--purple {
+		top: -10%;
+		left: -15%;
+		width: 700px;
+		height: 600px;
+		background: var(--color-primary-500);
+	}
+
+	.hero__blob--pink {
+		top: -5%;
+		right: -10%;
+		width: 550px;
+		height: 450px;
+		background: var(--color-secondary-400);
+		opacity: 0.35;
+	}
+
+	.hero__blob--violet {
+		top: 30%;
+		left: 25%;
+		width: 450px;
+		height: 350px;
+		background: var(--color-primary-400);
+		opacity: 0.3;
+	}
+
+	.hero__blob--fuchsia {
+		top: 55%;
+		right: 8%;
+		width: 380px;
+		height: 320px;
+		background: var(--color-secondary-500);
+		opacity: 0.25;
+	}
+
+	.hero__container {
+		max-width: 80rem;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.hero__badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.5rem 1rem;
+		border-radius: var(--radius-full);
+		font-size: var(--text-sm);
+		font-weight: var(--font-medium);
+		color: var(--color-primary-700);
+		margin-bottom: 2rem;
+	}
+
+	.hero__badge-icon { color: var(--color-primary-500); }
+
+	.hero__title {
+		font-size: clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
+		font-weight: var(--font-extrabold);
+		line-height: 1.1;
+		letter-spacing: -0.02em;
+		color: var(--color-gray-900);
+		margin: 0 0 1.5rem;
+	}
+
+	.hero__title-line { display: block; }
+
+	.hero__title-brand {
+		display: inline-block;
+		padding: 0.1em 0.55em;
+		border-radius: 1rem;
+		color: var(--color-primary-700);
+		margin-left: 0.25em;
+	}
+
+	.hero__subtitle {
+		font-size: var(--text-lg);
+		line-height: var(--leading-relaxed);
+		color: var(--color-gray-600);
+		max-width: 36rem;
+		margin: 0 auto 2.5rem;
+	}
+
+	.hero__cta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.875rem;
+		justify-content: center;
+		margin-bottom: 5rem;
+	}
+
+	/* Preview */
+	.hero__preview {
+		position: relative;
+		max-width: 64rem;
+		margin: 0 auto;
+		display: flex;
+		justify-content: center;
+		min-height: 30rem;
+	}
+
+	.hero__card {
+		position: absolute;
+		padding: 1rem;
+		border-radius: var(--radius-2xl);
+		width: 14rem;
+		box-shadow: var(--shadow-lg);
+		z-index: 2;
+	}
+
+	.hero__card--left { top: 2rem; left: 0; }
+	.hero__card--right { top: 5rem; right: 0; }
+
+	@media (max-width: 768px) {
+		.hero__card { display: none; }
+	}
+
+	.hero__card-header {
+		display: flex;
+		align-items: center;
+		gap: 0.625rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.hero__card-icon {
+		width: 2rem;
+		height: 2rem;
+		border-radius: var(--radius-md);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: white;
+		flex-shrink: 0;
+	}
+
+	.hero__card-icon--purple { background: linear-gradient(135deg, var(--color-primary-500), var(--color-primary-700)); }
+	.hero__card-icon--green  { background: linear-gradient(135deg, #4ade80, #16a34a); }
+
+	.hero__card-title {
+		font-size: var(--text-sm);
+		font-weight: var(--font-semibold);
+		color: var(--color-gray-900);
+	}
+
+	.hero__card-row {
+		display: flex;
+		justify-content: space-between;
+		font-size: 0.75rem;
+		color: var(--color-gray-600);
+		margin-bottom: 0.25rem;
+		margin-top: 0.5rem;
+	}
+
+	.hero__card-value {
+		color: var(--color-primary-600);
+		font-weight: var(--font-semibold);
+	}
+
+	.hero__card-bar {
+		width: 100%;
+		height: 0.375rem;
+		background: var(--color-gray-100);
+		border-radius: var(--radius-full);
+		overflow: hidden;
+		margin-bottom: 0.5rem;
+	}
+
+	.hero__card-bar-fill {
+		height: 100%;
+		background: linear-gradient(to right, var(--color-primary-400), var(--color-primary-600));
+		border-radius: var(--radius-full);
+	}
+
+	.hero__card-session {
+		display: flex;
+		align-items: center;
+		gap: 0.625rem;
+		margin-top: 0.5rem;
+	}
+
+	.hero__card-session strong {
+		display: block;
+		font-size: 0.75rem;
+		color: var(--color-gray-900);
+	}
+
+	.hero__card-session span {
+		font-size: 0.7rem;
+		color: var(--color-gray-500);
+	}
+
+	.hero__card-avatar {
+		width: 2rem;
+		height: 2rem;
+		border-radius: var(--radius-full);
+		background: linear-gradient(135deg, var(--color-primary-400), var(--color-primary-600));
+		color: white;
+		font-size: 0.7rem;
+		font-weight: var(--font-bold);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+	}
+
+	.hero__card-pill {
+		display: flex;
+		align-items: center;
+		gap: 0.375rem;
+		padding: 0.5rem 0.75rem;
+		margin-top: 0.625rem;
+		background: var(--color-primary-50);
+		border-radius: var(--radius-md);
+		font-size: 0.75rem;
+		font-weight: var(--font-medium);
+		color: var(--color-primary-700);
+	}
+
+	/* Phone mockup */
+	.hero__phone {
+		position: relative;
+		width: 18rem;
+		max-width: 90vw;
+	}
+
+	.hero__phone-frame {
+		position: relative;
+		background: #1a1a1a;
+		border-radius: 3rem;
+		padding: 0.625rem;
+		box-shadow: var(--shadow-xl);
+		z-index: 1;
+	}
+
+	.hero__phone-island {
+		position: absolute;
+		top: 1rem;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 6rem;
+		height: 1.75rem;
+		background: black;
+		border-radius: 999px;
+		z-index: 2;
+	}
+
+	.hero__phone-screen {
+		background: var(--surface-mobile-bg);
+		border-radius: 2.4rem;
+		overflow: hidden;
+		min-height: 28rem;
+	}
+
+	.hero__phone-glow {
+		position: absolute;
+		inset: -1.5rem;
+		background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(236, 72, 153, 0.2), rgba(244, 114, 182, 0.2));
+		border-radius: 4rem;
+		filter: blur(40px);
+		z-index: 0;
+	}
+
+	.hero__app {
+		padding: 3.5rem 1rem 1rem;
+		text-align: left;
+	}
+
+	.hero__app-header {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-bottom: 1rem;
+	}
+
+	.hero__app-logo {
+		width: 1.75rem;
+		height: 1.75rem;
+		border-radius: var(--radius-md);
+		background: linear-gradient(135deg, var(--color-primary-500), var(--color-primary-700));
+		color: white;
+		font-weight: var(--font-bold);
+		font-size: 0.75rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.hero__app-name {
+		font-weight: var(--font-bold);
+		font-size: 0.875rem;
+	}
+
+	.hero__app-greeting p {
+		font-size: 0.7rem;
+		color: var(--color-gray-500);
+		margin: 0;
+	}
+
+	.hero__app-greeting h3 {
+		font-size: 1rem;
+		font-weight: var(--font-bold);
+		color: var(--color-gray-900);
+		margin: 0 0 1rem;
+	}
+
+	.hero__app-stats {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 0.625rem;
+		margin-bottom: 1rem;
+	}
+
+	.hero__app-stat {
+		padding: 0.75rem;
+		border-radius: var(--radius-lg);
+		background: var(--color-primary-50);
+		font-size: 0.75rem;
+	}
+
+	.hero__app-stat span {
+		display: block;
+		color: var(--color-primary-600);
+	}
+
+	.hero__app-stat strong {
+		display: block;
+		font-size: 1.5rem;
+		font-weight: var(--font-bold);
+		color: var(--color-primary-700);
+	}
+
+	.hero__app-stat--primary {
+		background: linear-gradient(135deg, var(--color-primary-500), var(--color-primary-700));
+		color: white;
+	}
+
+	.hero__app-stat--primary span,
+	.hero__app-stat--primary strong { color: white; }
+
+	.hero__app-section-title {
+		font-size: 0.75rem;
+		font-weight: var(--font-semibold);
+		color: var(--color-gray-700);
+		margin-bottom: 0.5rem;
+	}
+
+	.hero__app-row {
+		display: flex;
+		align-items: center;
+		gap: 0.625rem;
+		padding: 0.625rem;
+		background: var(--color-gray-50);
+		border-radius: var(--radius-lg);
+		margin-bottom: 0.5rem;
+	}
+
+	.hero__app-row-icon {
+		width: 1.75rem;
+		height: 1.75rem;
+		border-radius: var(--radius-md);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 0.875rem;
+		background: var(--surface-mobile-bg);
+		flex-shrink: 0;
+	}
+
+	.hero__app-row-text {
+		flex: 1;
+		min-width: 0;
+	}
+
+	.hero__app-row-text strong {
+		display: block;
+		font-size: 0.7rem;
+		color: var(--color-gray-900);
+	}
+
+	.hero__app-row-text span {
+		font-size: 0.65rem;
+		color: var(--color-gray-500);
+	}
+
+	.hero__app-row-time {
+		font-size: 0.7rem;
+		font-weight: var(--font-semibold);
+		color: var(--color-success);
+	}
+
+	@media (max-width: 480px) {
+		.hero { padding-top: 6rem; }
+		.hero__cta { flex-direction: column; align-items: stretch; }
+		.hero__phone { width: 16rem; }
+	}
+</style>

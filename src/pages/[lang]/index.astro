@@ -1,0 +1,38 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import Hero from "../../components/sections/Hero.astro";
+import Features from "../../components/sections/Features.astro";
+import HowItWorks from "../../components/sections/HowItWorks.astro";
+import Testimonials from "../../components/sections/Testimonials.astro";
+import FAQ from "../../components/sections/FAQ.astro";
+import CTA from "../../components/sections/CTA.astro";
+import { useTranslations, locales, type Locale } from "../../i18n";
+
+export function getStaticPaths() {
+	// All locales except the default ("en") which is served at "/" by index.astro.
+	return locales
+		.filter((l) => l !== "en")
+		.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Locale };
+const t = useTranslations(lang);
+
+const title = `Academ — ${t("landing.bestPlatform")}`;
+const description = t("landing.subtitle");
+---
+
+<Layout title={title} description={description} locale={lang}>
+	<Header locale={lang} />
+	<main>
+		<Hero locale={lang} />
+		<Features locale={lang} />
+		<HowItWorks locale={lang} />
+		<Testimonials locale={lang} />
+		<FAQ locale={lang} />
+		<CTA locale={lang} />
+	</main>
+	<Footer locale={lang} />
+</Layout>

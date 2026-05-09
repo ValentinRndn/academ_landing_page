@@ -1,0 +1,157 @@
+---
+import { useTranslations, type Locale } from "../../i18n";
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const items = [1, 2, 3, 4, 5];
+---
+
+<section id="faq" class="faq">
+	<div class="faq__bg" aria-hidden="true">
+		<div class="faq__blob faq__blob--purple"></div>
+	</div>
+
+	<div class="faq__container">
+		<div class="faq__header" data-animate>
+			<span class="faq__pill badge-glass-primary">
+				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<circle cx="12" cy="12" r="10"></circle>
+					<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+					<line x1="12" y1="17" x2="12.01" y2="17"></line>
+				</svg>
+				{t("landing.faqTitle")}
+			</span>
+			<h2 class="faq__title">
+				{t("landing.frequentlyAsked")}
+				<span class="faq__title-accent">{t("landing.questions")}</span>
+			</h2>
+			<p class="faq__subtitle">{t("landing.faqSubtitle")}</p>
+		</div>
+
+		<div class="faq__list">
+			{items.map((n, i) => (
+				<details class="faq__item glass" data-animate data-delay={i * 80}>
+					<summary class="faq__question">
+						<span>{t(`landing.faq${n}Question`)}</span>
+						<svg class="faq__chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<polyline points="6 9 12 15 18 9"></polyline>
+						</svg>
+					</summary>
+					<div class="faq__answer">
+						<p>{t(`landing.faq${n}Answer`)}</p>
+					</div>
+				</details>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.faq {
+		position: relative;
+		padding: var(--spacing-section-y) var(--spacing-section-x);
+		overflow: hidden;
+	}
+
+	.faq__bg { position: absolute; inset: 0; pointer-events: none; z-index: -1; }
+
+	.faq__blob {
+		position: absolute;
+		top: 20%;
+		left: -10%;
+		width: 600px;
+		height: 500px;
+		border-radius: 50%;
+		filter: blur(130px);
+		background: var(--color-primary-500);
+		opacity: 0.15;
+	}
+
+	.faq__container { max-width: 56rem; margin: 0 auto; }
+
+	.faq__header { text-align: center; margin-bottom: 3rem; }
+
+	.faq__pill {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.5rem 1rem;
+		border-radius: var(--radius-full);
+		font-size: var(--text-sm);
+		font-weight: var(--font-medium);
+		color: var(--color-primary-700);
+		margin-bottom: 1.5rem;
+	}
+
+	.faq__title {
+		font-size: clamp(2rem, 1.5rem + 2.5vw, 3.25rem);
+		font-weight: var(--font-bold);
+		color: var(--color-gray-900);
+		margin: 0 0 1rem;
+		line-height: 1.2;
+	}
+
+	.faq__title-accent { color: var(--color-primary-600); margin-left: 0.5rem; }
+
+	.faq__subtitle {
+		font-size: var(--text-base);
+		color: var(--color-gray-500);
+		max-width: 36rem;
+		margin: 0 auto;
+	}
+
+	.faq__list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.875rem;
+	}
+
+	.faq__item {
+		border-radius: var(--radius-xl);
+		overflow: hidden;
+		transition: box-shadow var(--transition-base);
+	}
+
+	.faq__item[open] { box-shadow: var(--shadow-md); }
+
+	.faq__question {
+		list-style: none;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 1rem;
+		padding: 1.25rem 1.5rem;
+		cursor: pointer;
+		font-weight: var(--font-semibold);
+		font-size: 1rem;
+		color: var(--color-gray-900);
+	}
+
+	.faq__question::-webkit-details-marker { display: none; }
+
+	.faq__chevron {
+		color: var(--color-primary-600);
+		transition: transform var(--transition-base);
+		flex-shrink: 0;
+	}
+
+	.faq__item[open] .faq__chevron {
+		transform: rotate(180deg);
+	}
+
+	.faq__answer {
+		padding: 0 1.5rem 1.25rem;
+	}
+
+	.faq__answer p {
+		margin: 0;
+		font-size: var(--text-sm);
+		line-height: var(--leading-relaxed);
+		color: var(--color-gray-600);
+	}
+</style>
