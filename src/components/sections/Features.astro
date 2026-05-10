@@ -1,5 +1,10 @@
 ---
+import { Image } from "astro:assets";
 import { useTranslations, type Locale } from "../../i18n";
+import shieldIcon from "../../assets/images/icons/shield_icon.png";
+import calendarIcon from "../../assets/images/icons/calendar_icon.png";
+import graphIcon from "../../assets/images/icons/graph_icon.png";
+import lockIcon from "../../assets/images/icons/lock_icon.png";
 
 interface Props {
 	locale: Locale;
@@ -9,29 +14,17 @@ const { locale } = Astro.props;
 const t = useTranslations(locale);
 
 const features = [
-	{
-		key: "verifiedTutors",
-		icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />`,
-	},
-	{
-		key: "flexibleScheduling",
-		icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />`,
-	},
-	{
-		key: "progressTracking",
-		icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />`,
-	},
-	{
-		key: "securePayments",
-		icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />`,
-	},
+	{ key: "verifiedTutors", icon: shieldIcon, accent: "purple" },
+	{ key: "flexibleScheduling", icon: calendarIcon, accent: "violet" },
+	{ key: "progressTracking", icon: graphIcon, accent: "fuchsia" },
+	{ key: "securePayments", icon: lockIcon, accent: "pink" },
 ];
 ---
 
 <section id="features" class="features">
 	<div class="features__bg" aria-hidden="true">
 		<div class="features__blob features__blob--purple"></div>
-		<div class="features__blob features__blob--violet"></div>
+		<div class="features__blob features__blob--pink"></div>
 	</div>
 
 	<div class="features__container">
@@ -48,19 +41,95 @@ const features = [
 			</h2>
 		</div>
 
-		<div class="features__grid">
-			{features.map((f, i) => (
-				<div class="features__item" data-animate data-delay={i * 100}>
-					<div class="features__icon">
-						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" set:html={f.icon} />
+		<div class="features__layout" data-animate data-delay="200">
+			<!-- Preview panel (left on desktop) -->
+			<div class="features__preview" data-features-preview>
+				{features.map((f, i) => (
+					<div
+						class={`features__preview-panel features__preview-panel--${f.accent}`}
+						data-feature-panel={f.key}
+						data-active={i === 0 ? "true" : "false"}
+						aria-hidden={i !== 0}
+					>
+						<div class="features__preview-glow" aria-hidden="true"></div>
+						<div class="features__preview-orb" aria-hidden="true"></div>
+						<div class="features__preview-icon">
+							<Image src={f.icon} alt="" width={400} densities={[1, 2]} loading="lazy" />
+						</div>
+						<div class="features__preview-meta">
+							<span class="features__preview-step">0{i + 1} / 0{features.length}</span>
+							<h3 class="features__preview-title">{t(`landing.${f.key}`)}</h3>
+							<p class="features__preview-desc">{t(`landing.${f.key}Desc`)}</p>
+						</div>
 					</div>
-					<h3 class="features__item-title">{t(`landing.${f.key}`)}</h3>
-					<p class="features__item-desc">{t(`landing.${f.key}Desc`)}</p>
-				</div>
-			))}
+				))}
+			</div>
+
+			<!-- Tabs list (right on desktop) -->
+			<ul class="features__tabs" role="tablist" data-features-tabs>
+				{features.map((f, i) => (
+					<li class="features__tab-wrap">
+						<button
+							type="button"
+							class={`features__tab features__tab--${f.accent}`}
+							role="tab"
+							aria-selected={i === 0 ? "true" : "false"}
+							aria-controls={`feature-panel-${f.key}`}
+							data-feature-tab={f.key}
+						>
+							<span class="features__tab-indicator" aria-hidden="true">
+								<span class="features__tab-dot"></span>
+							</span>
+							<span class="features__tab-icon">
+								<Image src={f.icon} alt="" width={120} densities={[1, 2]} loading="lazy" />
+							</span>
+							<span class="features__tab-text">
+								<span class="features__tab-title">{t(`landing.${f.key}`)}</span>
+								<span class="features__tab-desc">{t(`landing.${f.key}Desc`)}</span>
+							</span>
+							<svg class="features__tab-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<line x1="5" y1="12" x2="19" y2="12"></line>
+								<polyline points="12 5 19 12 12 19"></polyline>
+							</svg>
+							<span class="features__tab-progress" aria-hidden="true"></span>
+						</button>
+					</li>
+				))}
+			</ul>
 		</div>
 	</div>
 </section>
+
+<script>
+	const root = document.querySelector(".features__layout");
+	if (root) {
+		const tabs = root.querySelectorAll<HTMLButtonElement>("[data-feature-tab]");
+		const panels = root.querySelectorAll<HTMLElement>("[data-feature-panel]");
+
+		const activate = (key: string) => {
+			tabs.forEach((tab) => {
+				const active = tab.dataset.featureTab === key;
+				tab.setAttribute("aria-selected", String(active));
+			});
+			panels.forEach((panel) => {
+				const active = panel.dataset.featurePanel === key;
+				panel.dataset.active = String(active);
+				panel.setAttribute("aria-hidden", String(!active));
+			});
+		};
+
+		tabs.forEach((tab) => {
+			tab.addEventListener("click", () => {
+				const key = tab.dataset.featureTab;
+				if (key) activate(key);
+			});
+			tab.addEventListener("mouseenter", () => {
+				const key = tab.dataset.featureTab;
+				if (key) activate(key);
+			});
+		});
+	}
+</script>
 
 <style>
 	.features {
@@ -69,37 +138,44 @@ const features = [
 		overflow: hidden;
 	}
 
-	.features__bg { position: absolute; inset: 0; pointer-events: none; z-index: -1; }
+	.features__bg {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		z-index: -1;
+	}
 
 	.features__blob {
 		position: absolute;
 		border-radius: 50%;
-		filter: blur(120px);
+		filter: blur(140px);
 	}
 
 	.features__blob--purple {
 		top: 10%;
-		left: -10%;
-		width: 500px;
-		height: 400px;
+		left: -8%;
+		width: 600px;
+		height: 480px;
 		background: var(--color-primary-500);
+		opacity: 0.22;
+	}
+
+	.features__blob--pink {
+		bottom: -10%;
+		right: -5%;
+		width: 520px;
+		height: 420px;
+		background: var(--color-secondary-500);
 		opacity: 0.18;
 	}
 
-	.features__blob--violet {
-		bottom: 5%;
-		right: 15%;
-		width: 400px;
-		height: 320px;
-		background: var(--color-primary-400);
-		opacity: 0.15;
-	}
-
 	.features__container {
+		position: relative;
 		max-width: 80rem;
 		margin: 0 auto;
 	}
 
+	/* ----- Header ----- */
 	.features__header {
 		text-align: center;
 		margin-bottom: 4rem;
@@ -123,56 +199,327 @@ const features = [
 		color: var(--color-gray-900);
 		margin: 0;
 		line-height: 1.15;
+		letter-spacing: -0.02em;
 	}
 
-	.features__title-accent { color: var(--color-primary-600); }
+	.features__title-accent {
+		background: linear-gradient(135deg, var(--color-primary-400), var(--color-secondary-500));
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+	}
 
-	.features__grid {
+	/* ----- Layout ----- */
+	.features__layout {
 		display: grid;
 		grid-template-columns: 1fr;
-		gap: 2rem;
+		gap: 1.5rem;
+		align-items: stretch;
 	}
 
-	@media (min-width: 640px) {
-		.features__grid { grid-template-columns: repeat(2, 1fr); }
+	@media (min-width: 900px) {
+		.features__layout {
+			grid-template-columns: 1.1fr 1fr;
+			gap: 2.5rem;
+		}
 	}
 
-	@media (min-width: 1024px) {
-		.features__grid { grid-template-columns: repeat(4, 1fr); gap: 2.5rem; }
+	/* ============== PREVIEW PANEL ============== */
+	.features__preview {
+		position: relative;
+		min-height: 30rem;
+		border-radius: var(--radius-2xl);
+		padding: 2.5rem;
+		background:
+			radial-gradient(120% 80% at 20% 0%, rgba(168, 85, 247, 0.15), transparent 60%),
+			linear-gradient(180deg, rgba(168, 85, 247, 0.06), rgba(236, 72, 153, 0.04));
+		border: 1px solid rgba(168, 85, 247, 0.2);
+		backdrop-filter: blur(20px) saturate(160%);
+		-webkit-backdrop-filter: blur(20px) saturate(160%);
+		overflow: hidden;
+		isolation: isolate;
 	}
 
-	.features__item {
-		text-align: left;
+	.features__preview::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background-image:
+			linear-gradient(rgba(168, 85, 247, 0.08) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(168, 85, 247, 0.08) 1px, transparent 1px);
+		background-size: 40px 40px;
+		mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 30%, transparent 75%);
+		-webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 30%, transparent 75%);
+		opacity: 0.5;
+		pointer-events: none;
+		z-index: 0;
 	}
 
-	.features__icon {
-		width: 3rem;
-		height: 3rem;
-		border-radius: var(--radius-xl);
-		background: var(--color-primary-100);
-		color: var(--color-primary-600);
+	.features__preview-panel {
+		position: absolute;
+		inset: 2.5rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		opacity: 0;
+		transform: translateY(12px) scale(0.98);
+		transition:
+			opacity 0.45s ease,
+			transform 0.45s ease;
+		pointer-events: none;
+		z-index: 1;
+	}
+
+	.features__preview-panel[data-active="true"] {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+		pointer-events: auto;
+	}
+
+	.features__preview-glow {
+		position: absolute;
+		top: -20%;
+		right: -20%;
+		width: 80%;
+		height: 80%;
+		background: radial-gradient(circle, rgba(168, 85, 247, 0.55), transparent 65%);
+		filter: blur(60px);
+		z-index: -1;
+		transition: background 0.5s ease;
+	}
+
+	.features__preview-panel--violet .features__preview-glow {
+		background: radial-gradient(circle, rgba(192, 132, 252, 0.6), transparent 65%);
+	}
+	.features__preview-panel--fuchsia .features__preview-glow {
+		background: radial-gradient(circle, rgba(217, 70, 239, 0.55), transparent 65%);
+	}
+	.features__preview-panel--pink .features__preview-glow {
+		background: radial-gradient(circle, rgba(236, 72, 153, 0.55), transparent 65%);
+	}
+
+	.features__preview-orb {
+		position: absolute;
+		bottom: -30%;
+		left: -20%;
+		width: 70%;
+		height: 70%;
+		background: radial-gradient(circle, rgba(236, 72, 153, 0.35), transparent 65%);
+		filter: blur(70px);
+		z-index: -1;
+	}
+
+	.features__preview-icon {
+		position: relative;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		margin-bottom: 1rem;
-		transition: transform var(--transition-base);
+		flex: 1;
+		min-height: 14rem;
 	}
 
-	.features__item:hover .features__icon {
-		transform: scale(1.1);
+	.features__preview-icon :global(img) {
+		width: auto;
+		max-width: 70%;
+		max-height: 16rem;
+		height: auto;
+		filter: drop-shadow(0 20px 40px rgba(168, 85, 247, 0.5));
+		animation: float 5s ease-in-out infinite;
 	}
 
-	.features__item-title {
-		font-size: 1.05rem;
+	@keyframes float {
+		0%, 100% { transform: translateY(0); }
+		50% { transform: translateY(-10px); }
+	}
+
+	.features__preview-meta { position: relative; }
+
+	.features__preview-step {
+		display: inline-block;
+		font-size: 0.75rem;
+		font-weight: var(--font-bold);
+		letter-spacing: 0.15em;
+		color: var(--color-primary-400);
+		margin-bottom: 0.75rem;
+	}
+
+	.features__preview-title {
+		font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem);
 		font-weight: var(--font-bold);
 		color: var(--color-gray-900);
-		margin: 0 0 0.5rem;
+		margin: 0 0 0.75rem;
+		letter-spacing: -0.01em;
 	}
 
-	.features__item-desc {
-		font-size: var(--text-sm);
+	.features__preview-desc {
+		font-size: var(--text-base);
 		line-height: var(--leading-relaxed);
-		color: var(--color-gray-500);
+		color: var(--color-gray-400);
 		margin: 0;
+		max-width: 28rem;
+	}
+
+	/* ============== TABS LIST ============== */
+	.features__tabs {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+
+	.features__tab {
+		position: relative;
+		display: grid;
+		grid-template-columns: auto auto 1fr auto;
+		align-items: center;
+		gap: 1rem;
+		width: 100%;
+		padding: 1.125rem 1.25rem;
+		border-radius: var(--radius-xl);
+		background: rgba(255, 255, 255, 0.02);
+		border: 1px solid rgba(168, 85, 247, 0.12);
+		color: inherit;
+		text-align: left;
+		cursor: pointer;
+		overflow: hidden;
+		transition:
+			background 0.3s ease,
+			border-color 0.3s ease,
+			transform 0.25s ease;
+		font: inherit;
+	}
+
+	.features__tab:hover {
+		background: rgba(168, 85, 247, 0.06);
+		border-color: rgba(168, 85, 247, 0.3);
+	}
+
+	.features__tab[aria-selected="true"] {
+		background: rgba(168, 85, 247, 0.1);
+		border-color: rgba(168, 85, 247, 0.55);
+		box-shadow: 0 8px 30px -10px rgba(168, 85, 247, 0.4);
+	}
+
+	.features__tab-indicator {
+		width: 1.25rem;
+		height: 1.25rem;
+		border-radius: 50%;
+		border: 1.5px solid rgba(168, 85, 247, 0.4);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		transition: border-color 0.3s ease;
+	}
+
+	.features__tab[aria-selected="true"] .features__tab-indicator {
+		border-color: var(--color-primary-400);
+	}
+
+	.features__tab-dot {
+		width: 0.5rem;
+		height: 0.5rem;
+		border-radius: 50%;
+		background: var(--color-primary-400);
+		transform: scale(0);
+		transition: transform 0.3s ease;
+	}
+
+	.features__tab[aria-selected="true"] .features__tab-dot {
+		transform: scale(1);
+	}
+
+	.features__tab-icon {
+		width: 2.25rem;
+		height: 2.25rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		opacity: 0.7;
+		transition: opacity 0.3s ease, transform 0.3s ease;
+	}
+
+	.features__tab-icon :global(img) {
+		width: auto;
+		height: 100%;
+		object-fit: contain;
+	}
+
+	.features__tab[aria-selected="true"] .features__tab-icon,
+	.features__tab:hover .features__tab-icon {
+		opacity: 1;
+		transform: scale(1.05);
+	}
+
+	.features__tab-text {
+		display: flex;
+		flex-direction: column;
+		gap: 0.2rem;
+		min-width: 0;
+	}
+
+	.features__tab-title {
+		font-size: 1rem;
+		font-weight: var(--font-bold);
+		color: var(--color-gray-900);
+		letter-spacing: -0.01em;
+	}
+
+	.features__tab-desc {
+		font-size: 0.8rem;
+		line-height: 1.4;
+		color: var(--color-gray-500);
+		display: -webkit-box;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	.features__tab-arrow {
+		color: var(--color-primary-400);
+		opacity: 0;
+		transform: translateX(-6px);
+		transition: opacity 0.3s ease, transform 0.3s ease;
+		flex-shrink: 0;
+	}
+
+	.features__tab[aria-selected="true"] .features__tab-arrow {
+		opacity: 1;
+		transform: translateX(0);
+	}
+
+	.features__tab-progress {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		height: 2px;
+		width: 100%;
+		background: linear-gradient(90deg, var(--color-primary-400), var(--color-secondary-500));
+		transform-origin: left;
+		transform: scaleX(0);
+		transition: transform 0.3s ease;
+	}
+
+	.features__tab[aria-selected="true"] .features__tab-progress {
+		transform: scaleX(1);
+	}
+
+	/* ============== Mobile ============== */
+	@media (max-width: 899px) {
+		.features__preview { min-height: 24rem; padding: 2rem; }
+		.features__preview-panel { inset: 2rem; }
+		.features__preview-icon { min-height: 10rem; }
+		.features__preview-icon :global(img) { max-height: 12rem; }
+		.features__tab-desc { -webkit-line-clamp: 2; }
+	}
+
+	@media (max-width: 480px) {
+		.features__preview { min-height: 22rem; padding: 1.5rem; }
+		.features__preview-panel { inset: 1.5rem; }
+		.features__tab { grid-template-columns: auto auto 1fr; padding: 1rem; }
+		.features__tab-arrow { display: none; }
 	}
 </style>
