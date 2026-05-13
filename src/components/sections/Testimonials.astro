@@ -9,10 +9,26 @@ const { locale } = Astro.props;
 const t = useTranslations(locale);
 
 const testimonials = [
-	{ key: "testimonial1", initials: "SL", color: "from-purple-400 to-purple-600" },
-	{ key: "testimonial2", initials: "TM", color: "from-pink-400 to-pink-600" },
-	{ key: "testimonial3", initials: "EB", color: "from-violet-400 to-violet-600" },
+	{
+		key: "testimonial1",
+		accent: "purple",
+		photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=faces&auto=format&q=80",
+	},
+	{
+		key: "testimonial2",
+		accent: "fuchsia",
+		photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=faces&auto=format&q=80",
+	},
+	{
+		key: "testimonial3",
+		accent: "pink",
+		photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=faces&auto=format&q=80",
+	},
 ];
+
+// Two ordered rows so each marquee feels distinct
+const rowA = [...testimonials, ...testimonials];
+const rowB = [...testimonials.slice(1), ...testimonials.slice(0, 1), ...testimonials.slice(1), ...testimonials.slice(0, 1)];
 ---
 
 <section id="testimonials" class="testimonials">
@@ -36,26 +52,74 @@ const testimonials = [
 			<p class="testimonials__subtitle">{t("landing.testimonialsSubtitle")}</p>
 		</div>
 
-		<div class="testimonials__grid">
-			{testimonials.map((tt, i) => (
-				<div class="testimonials__card glass" data-animate data-delay={i * 150}>
-					<div class="testimonials__stars" aria-label="5 stars">
-						{Array.from({ length: 5 }).map(() => (
-							<svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
-								<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+		<div class="testimonials__marquees" data-animate data-delay="200">
+			<!-- Row A — scrolls left -->
+			<div class="testimonials__marquee testimonials__marquee--left">
+				<div class="testimonials__track" aria-hidden="false">
+					{rowA.map((tt) => (
+						<article class={`testimonials__card testimonials__card--${tt.accent}`}>
+							<div class="testimonials__card-glow" aria-hidden="true"></div>
+							<svg class="testimonials__quote-mark" width="56" height="56" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+								<path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z" />
 							</svg>
-						))}
-					</div>
-					<p class="testimonials__quote">"{t(`landing.${tt.key}`)}"</p>
-					<div class="testimonials__author">
-						<div class={`testimonials__avatar testimonials__avatar--${i}`}>{tt.initials}</div>
-						<div>
-							<strong>{t(`landing.${tt.key}Author`)}</strong>
-							<span>{t(`landing.${tt.key}Role`)}</span>
-						</div>
-					</div>
+							<div class="testimonials__stars" aria-label="5 stars">
+								{Array.from({ length: 5 }).map(() => (
+									<svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
+										<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+									</svg>
+								))}
+							</div>
+							<p class="testimonials__quote">{t(`landing.${tt.key}`)}</p>
+							<div class="testimonials__author">
+								<div class="testimonials__avatar-wrap">
+									<span class="testimonials__avatar-halo" aria-hidden="true"></span>
+									<div class={`testimonials__avatar testimonials__avatar--${tt.accent}`}>
+									<img src={tt.photo} alt="" loading="lazy" />
+								</div>
+								</div>
+								<div class="testimonials__author-meta">
+									<strong>{t(`landing.${tt.key}Author`)}</strong>
+									<span>{t(`landing.${tt.key}Role`)}</span>
+								</div>
+							</div>
+						</article>
+					))}
 				</div>
-			))}
+			</div>
+
+			<!-- Row B — scrolls right -->
+			<div class="testimonials__marquee testimonials__marquee--right">
+				<div class="testimonials__track" aria-hidden="false">
+					{rowB.map((tt) => (
+						<article class={`testimonials__card testimonials__card--${tt.accent}`}>
+							<div class="testimonials__card-glow" aria-hidden="true"></div>
+							<svg class="testimonials__quote-mark" width="56" height="56" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+								<path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z" />
+							</svg>
+							<div class="testimonials__stars" aria-label="5 stars">
+								{Array.from({ length: 5 }).map(() => (
+									<svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
+										<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+									</svg>
+								))}
+							</div>
+							<p class="testimonials__quote">{t(`landing.${tt.key}`)}</p>
+							<div class="testimonials__author">
+								<div class="testimonials__avatar-wrap">
+									<span class="testimonials__avatar-halo" aria-hidden="true"></span>
+									<div class={`testimonials__avatar testimonials__avatar--${tt.accent}`}>
+									<img src={tt.photo} alt="" loading="lazy" />
+								</div>
+								</div>
+								<div class="testimonials__author-meta">
+									<strong>{t(`landing.${tt.key}Author`)}</strong>
+									<span>{t(`landing.${tt.key}Role`)}</span>
+								</div>
+							</div>
+						</article>
+					))}
+				</div>
+			</div>
 		</div>
 	</div>
 </section>
@@ -72,7 +136,7 @@ const testimonials = [
 	.testimonials__blob {
 		position: absolute;
 		border-radius: 50%;
-		filter: blur(120px);
+		filter: blur(140px);
 	}
 
 	.testimonials__blob--purple {
@@ -85,17 +149,25 @@ const testimonials = [
 	}
 
 	.testimonials__blob--pink {
-		bottom: 5%;
+		bottom: 0%;
 		left: -10%;
 		width: 480px;
 		height: 380px;
-		background: var(--color-secondary-400);
+		background: var(--color-secondary-500);
 		opacity: 0.18;
 	}
 
-	.testimonials__container { max-width: 80rem; margin: 0 auto; }
+	.testimonials__container {
+		position: relative;
+		max-width: 100rem;
+		margin: 0 auto;
+	}
 
-	.testimonials__header { text-align: center; margin-bottom: 4rem; }
+	/* ----- Header ----- */
+	.testimonials__header {
+		text-align: center;
+		margin-bottom: 4rem;
+	}
 
 	.testimonials__pill {
 		display: inline-flex;
@@ -114,10 +186,16 @@ const testimonials = [
 		font-weight: var(--font-bold);
 		color: var(--color-gray-900);
 		margin: 0 0 1rem;
-		line-height: 1.2;
+		line-height: 1.15;
+		letter-spacing: -0.02em;
 	}
 
-	.testimonials__title-accent { color: var(--color-primary-600); }
+	.testimonials__title-accent {
+		background: linear-gradient(135deg, var(--color-primary-400), var(--color-secondary-500));
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+	}
 
 	.testimonials__subtitle {
 		font-size: var(--text-lg);
@@ -126,76 +204,271 @@ const testimonials = [
 		margin: 0 auto;
 	}
 
-	.testimonials__grid {
-		display: grid;
-		grid-template-columns: 1fr;
+	/* ============== MARQUEES ============== */
+	.testimonials__marquees {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+		mask-image: linear-gradient(
+			to right,
+			transparent 0%,
+			black 8%,
+			black 92%,
+			transparent 100%
+		);
+		-webkit-mask-image: linear-gradient(
+			to right,
+			transparent 0%,
+			black 8%,
+			black 92%,
+			transparent 100%
+		);
+	}
+
+	.testimonials__marquee {
+		overflow: hidden;
+		padding: 1rem 0;
+	}
+
+	.testimonials__track {
+		display: flex;
 		gap: 1.5rem;
+		width: max-content;
+		animation: marquee-left 50s linear infinite;
+		will-change: transform;
 	}
 
-	@media (min-width: 768px) {
-		.testimonials__grid { grid-template-columns: repeat(2, 1fr); }
+	.testimonials__marquee--right .testimonials__track {
+		animation-name: marquee-right;
+		animation-duration: 55s;
 	}
 
-	@media (min-width: 1024px) {
-		.testimonials__grid { grid-template-columns: repeat(3, 1fr); }
+	@keyframes marquee-left {
+		from { transform: translateX(0); }
+		to { transform: translateX(-50%); }
 	}
 
+	@keyframes marquee-right {
+		from { transform: translateX(-50%); }
+		to { transform: translateX(0); }
+	}
+
+	/* Pause on hover */
+	.testimonials__marquee:hover .testimonials__track {
+		animation-play-state: paused;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.testimonials__track { animation: none; }
+		.testimonials__marquees {
+			mask-image: none;
+			-webkit-mask-image: none;
+			overflow-x: auto;
+		}
+	}
+
+	/* ============== CARD ============== */
 	.testimonials__card {
+		position: relative;
+		flex-shrink: 0;
+		width: 22rem;
 		padding: 1.75rem;
 		border-radius: var(--radius-2xl);
-		transition: transform var(--transition-slow), box-shadow var(--transition-slow);
+		background:
+			radial-gradient(120% 80% at 20% 0%, rgba(168, 85, 247, 0.12), transparent 60%),
+			linear-gradient(180deg, rgba(168, 85, 247, 0.05), rgba(236, 72, 153, 0.03));
+		border: 1px solid rgba(168, 85, 247, 0.2);
+		backdrop-filter: blur(18px) saturate(160%);
+		-webkit-backdrop-filter: blur(18px) saturate(160%);
+		overflow: hidden;
+		isolation: isolate;
+		transition:
+			transform var(--transition-base),
+			border-color var(--transition-base),
+			box-shadow var(--transition-base);
+	}
+
+	.testimonials__card::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background-image:
+			linear-gradient(rgba(168, 85, 247, 0.06) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(168, 85, 247, 0.06) 1px, transparent 1px);
+		background-size: 40px 40px;
+		mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 30%, transparent 75%);
+		-webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 30%, transparent 75%);
+		opacity: 0.4;
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	.testimonials__card--fuchsia {
+		background:
+			radial-gradient(120% 80% at 80% 0%, rgba(217, 70, 239, 0.12), transparent 60%),
+			linear-gradient(180deg, rgba(168, 85, 247, 0.04), rgba(217, 70, 239, 0.04));
+		border-color: rgba(217, 70, 239, 0.22);
+	}
+
+	.testimonials__card--pink {
+		background:
+			radial-gradient(120% 80% at 80% 0%, rgba(236, 72, 153, 0.12), transparent 60%),
+			linear-gradient(180deg, rgba(236, 72, 153, 0.05), rgba(168, 85, 247, 0.03));
+		border-color: rgba(236, 72, 153, 0.22);
 	}
 
 	.testimonials__card:hover {
 		transform: translateY(-4px);
-		box-shadow: var(--shadow-xl);
+		border-color: rgba(168, 85, 247, 0.5);
+		box-shadow: 0 8px 20px -10px rgba(168, 85, 247, 0.3);
 	}
 
+	.testimonials__card--fuchsia:hover { border-color: rgba(217, 70, 239, 0.5); }
+	.testimonials__card--pink:hover { border-color: rgba(236, 72, 153, 0.5); }
+
+	.testimonials__card-glow {
+		position: absolute;
+		top: -30%;
+		right: -20%;
+		width: 70%;
+		height: 70%;
+		background: radial-gradient(circle, rgba(168, 85, 247, 0.4), transparent 65%);
+		filter: blur(50px);
+		z-index: -1;
+		pointer-events: none;
+		opacity: 0.7;
+	}
+
+	.testimonials__card--fuchsia .testimonials__card-glow {
+		background: radial-gradient(circle, rgba(217, 70, 239, 0.4), transparent 65%);
+	}
+
+	.testimonials__card--pink .testimonials__card-glow {
+		background: radial-gradient(circle, rgba(236, 72, 153, 0.4), transparent 65%);
+	}
+
+	.testimonials__quote-mark {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		color: rgba(168, 85, 247, 0.18);
+		z-index: 0;
+		pointer-events: none;
+	}
+
+	.testimonials__card--fuchsia .testimonials__quote-mark { color: rgba(217, 70, 239, 0.18); }
+	.testimonials__card--pink .testimonials__quote-mark { color: rgba(236, 72, 153, 0.18); }
+
 	.testimonials__stars {
-		display: flex;
-		gap: 0.125rem;
+		position: relative;
+		display: inline-flex;
+		gap: 0.15rem;
 		color: #fbbf24;
 		margin-bottom: 1rem;
+		filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.4));
+		z-index: 1;
 	}
 
 	.testimonials__quote {
-		font-size: var(--text-sm);
-		line-height: var(--leading-relaxed);
+		position: relative;
+		font-size: 0.9rem;
+		line-height: 1.6;
 		color: var(--color-gray-600);
 		margin: 0 0 1.5rem;
+		z-index: 1;
+		display: -webkit-box;
+		-webkit-line-clamp: 4;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
 	}
 
+	.testimonials__quote::before { content: "\201C"; }
+	.testimonials__quote::after { content: "\201D"; }
+
 	.testimonials__author {
+		position: relative;
 		display: flex;
 		align-items: center;
 		gap: 0.75rem;
+		padding-top: 1rem;
+		border-top: 1px solid rgba(168, 85, 247, 0.15);
+		z-index: 1;
 	}
 
-	.testimonials__author strong {
-		display: block;
-		font-size: 0.875rem;
-		color: var(--color-gray-900);
-	}
+	.testimonials__card--fuchsia .testimonials__author { border-top-color: rgba(217, 70, 239, 0.18); }
+	.testimonials__card--pink .testimonials__author { border-top-color: rgba(236, 72, 153, 0.18); }
 
-	.testimonials__author span {
-		font-size: 0.75rem;
-		color: var(--color-gray-500);
-	}
-
-	.testimonials__avatar {
+	.testimonials__avatar-wrap {
+		position: relative;
 		width: 2.5rem;
 		height: 2.5rem;
-		border-radius: var(--radius-full);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 0.75rem;
-		font-weight: var(--font-bold);
-		color: white;
 		flex-shrink: 0;
 	}
 
-	.testimonials__avatar--0 { background: linear-gradient(135deg, var(--color-primary-400), var(--color-primary-700)); }
-	.testimonials__avatar--1 { background: linear-gradient(135deg, var(--color-secondary-400), var(--color-secondary-500)); }
-	.testimonials__avatar--2 { background: linear-gradient(135deg, var(--color-primary-300), var(--color-primary-600)); }
+	.testimonials__avatar-halo {
+		position: absolute;
+		inset: -25%;
+		border-radius: 50%;
+		background: radial-gradient(circle, rgba(168, 85, 247, 0.55), transparent 65%);
+		filter: blur(12px);
+		opacity: 0.7;
+	}
+
+	.testimonials__card--fuchsia .testimonials__avatar-halo {
+		background: radial-gradient(circle, rgba(217, 70, 239, 0.55), transparent 65%);
+	}
+	.testimonials__card--pink .testimonials__avatar-halo {
+		background: radial-gradient(circle, rgba(236, 72, 153, 0.55), transparent 65%);
+	}
+
+	.testimonials__avatar {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		border-radius: 50%;
+		overflow: hidden;
+		border: 1.5px solid rgba(168, 85, 247, 0.5);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+	}
+
+	.testimonials__avatar img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.testimonials__avatar--purple {
+		border-color: rgba(168, 85, 247, 0.55);
+	}
+	.testimonials__avatar--fuchsia {
+		border-color: rgba(217, 70, 239, 0.55);
+	}
+	.testimonials__avatar--pink {
+		border-color: rgba(236, 72, 153, 0.55);
+	}
+
+	.testimonials__author-meta {
+		display: flex;
+		flex-direction: column;
+		gap: 0.1rem;
+		min-width: 0;
+	}
+
+	.testimonials__author-meta strong {
+		font-size: 0.875rem;
+		font-weight: var(--font-bold);
+		color: var(--color-gray-900);
+		letter-spacing: -0.01em;
+	}
+
+	.testimonials__author-meta span {
+		font-size: 0.72rem;
+		color: var(--color-gray-500);
+	}
+
+	@media (max-width: 640px) {
+		.testimonials__card { width: 18rem; padding: 1.5rem; }
+		.testimonials__track { gap: 1rem; }
+	}
 </style>

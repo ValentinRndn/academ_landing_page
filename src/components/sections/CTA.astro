@@ -13,22 +13,37 @@ const APP_URL = "https://app.academ.my";
 
 <section class="cta">
 	<div class="cta__container">
-		<div class="cta__card glass" data-animate>
+		<div class="cta__card" data-animate>
+			<!-- Background layers -->
 			<div class="cta__bg" aria-hidden="true">
-				<div class="cta__blob cta__blob--1"></div>
-				<div class="cta__blob cta__blob--2"></div>
+				<div class="cta__blob cta__blob--purple"></div>
+				<div class="cta__blob cta__blob--pink"></div>
+				<div class="cta__orb cta__orb--top" aria-hidden="true"></div>
+				<div class="cta__orb cta__orb--bottom" aria-hidden="true"></div>
 			</div>
 
+			<!-- Watermark word -->
+			<span class="cta__watermark" aria-hidden="true">ACADEM</span>
+
+			<!-- Content -->
 			<div class="cta__content">
+				<span class="cta__pill badge-glass-primary">
+					{t("landing.getStarted")}
+				</span>
+
 				<h2 class="cta__title">{t("landing.readyToTransform")}</h2>
 				<p class="cta__subtitle">{t("landing.joinThousands")}</p>
-				<a href={`${APP_URL}/register`} class="btn-glass-primary btn-glass-primary--lg cta__btn">
-					{t("landing.startFreeTrial")}
-					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-						<line x1="5" y1="12" x2="19" y2="12"></line>
-						<polyline points="12 5 19 12 12 19"></polyline>
-					</svg>
-				</a>
+
+				<div class="cta__actions">
+					<a href={`${APP_URL}/register`} class="btn-glass-primary btn-glass-primary--lg cta__btn">
+						{t("landing.startFreeTrial")}
+						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							<line x1="5" y1="12" x2="19" y2="12"></line>
+							<polyline points="12 5 19 12 12 19"></polyline>
+						</svg>
+					</a>
+				</div>
+
 			</div>
 		</div>
 	</div>
@@ -36,71 +51,205 @@ const APP_URL = "https://app.academ.my";
 
 <style>
 	.cta {
+		position: relative;
 		padding: var(--spacing-section-y) var(--spacing-section-x);
+		overflow: hidden;
 	}
 
 	.cta__container {
+		position: relative;
 		max-width: 72rem;
 		margin: 0 auto;
 	}
 
+	/* ============== CARD ============== */
 	.cta__card {
 		position: relative;
 		overflow: hidden;
 		border-radius: var(--radius-2xl);
-		padding: clamp(3rem, 2rem + 4vw, 5rem) clamp(2rem, 1rem + 3vw, 4rem);
+		padding: clamp(3.5rem, 2rem + 5vw, 6rem) clamp(2rem, 1rem + 3vw, 4rem);
 		text-align: center;
+		background:
+			radial-gradient(120% 80% at 20% 0%, rgba(168, 85, 247, 0.18), transparent 60%),
+			radial-gradient(120% 80% at 80% 100%, rgba(236, 72, 153, 0.15), transparent 60%),
+			linear-gradient(180deg, rgba(168, 85, 247, 0.08), rgba(236, 72, 153, 0.06));
+		border: 1px solid rgba(168, 85, 247, 0.25);
+		backdrop-filter: blur(24px) saturate(160%);
+		-webkit-backdrop-filter: blur(24px) saturate(160%);
+		isolation: isolate;
 	}
 
+	/* Grid pattern overlay */
+	.cta__card::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background-image:
+			linear-gradient(rgba(168, 85, 247, 0.08) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(168, 85, 247, 0.08) 1px, transparent 1px);
+		background-size: 48px 48px;
+		mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 25%, transparent 80%);
+		-webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 25%, transparent 80%);
+		opacity: 0.5;
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	/* Animated gradient border */
+	.cta__card::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+		padding: 1px;
+		background: linear-gradient(135deg,
+			rgba(168, 85, 247, 0.6),
+			rgba(236, 72, 153, 0.4) 50%,
+			rgba(168, 85, 247, 0.5));
+		-webkit-mask:
+			linear-gradient(#000 0 0) content-box,
+			linear-gradient(#000 0 0);
+		-webkit-mask-composite: xor;
+		mask:
+			linear-gradient(#000 0 0) content-box,
+			linear-gradient(#000 0 0);
+		mask-composite: exclude;
+		opacity: 0.7;
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	/* ============== Background blobs ============== */
 	.cta__bg {
 		position: absolute;
 		inset: 0;
-		z-index: 0;
+		z-index: -1;
 		pointer-events: none;
 	}
 
 	.cta__blob {
 		position: absolute;
 		border-radius: 50%;
-		filter: blur(80px);
+		filter: blur(100px);
 	}
 
-	.cta__blob--1 {
+	.cta__blob--purple {
 		top: -30%;
 		left: -10%;
-		width: 400px;
-		height: 350px;
+		width: 480px;
+		height: 400px;
 		background: var(--color-primary-500);
+		opacity: 0.35;
+	}
+
+	.cta__blob--pink {
+		bottom: -30%;
+		right: -10%;
+		width: 440px;
+		height: 380px;
+		background: var(--color-secondary-500);
 		opacity: 0.3;
 	}
 
-	.cta__blob--2 {
-		bottom: -30%;
-		right: -10%;
-		width: 380px;
-		height: 320px;
-		background: var(--color-secondary-400);
-		opacity: 0.25;
+	/* Animated orbs that breathe */
+	.cta__orb {
+		position: absolute;
+		border-radius: 50%;
+		filter: blur(40px);
 	}
 
+	.cta__orb--top {
+		top: 15%;
+		left: 8%;
+		width: 120px;
+		height: 120px;
+		background: radial-gradient(circle, rgba(192, 132, 252, 0.5), transparent 65%);
+		animation: cta-float 8s ease-in-out infinite;
+	}
+
+	.cta__orb--bottom {
+		bottom: 15%;
+		right: 8%;
+		width: 100px;
+		height: 100px;
+		background: radial-gradient(circle, rgba(244, 114, 182, 0.5), transparent 65%);
+		animation: cta-float 10s ease-in-out infinite reverse;
+	}
+
+	@keyframes cta-float {
+		0%, 100% { transform: translate(0, 0); }
+		50% { transform: translate(20px, -20px); }
+	}
+
+	/* ============== Watermark ============== */
+	.cta__watermark {
+		position: absolute;
+		bottom: -1.5rem;
+		left: 50%;
+		transform: translateX(-50%);
+		font-size: clamp(5rem, 3rem + 12vw, 14rem);
+		font-weight: var(--font-extrabold);
+		letter-spacing: -0.05em;
+		line-height: 1;
+		background: linear-gradient(180deg, rgba(168, 85, 247, 0.18), transparent);
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+		pointer-events: none;
+		white-space: nowrap;
+		z-index: 0;
+		user-select: none;
+	}
+
+	/* ============== Content ============== */
 	.cta__content {
 		position: relative;
 		z-index: 1;
 	}
 
+	.cta__pill {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.5rem 1rem;
+		border-radius: var(--radius-full);
+		font-size: var(--text-sm);
+		font-weight: var(--font-semibold);
+		color: var(--color-primary-700);
+		margin-bottom: 1.5rem;
+	}
+
 	.cta__title {
-		font-size: clamp(1.75rem, 1.25rem + 2.5vw, 3rem);
-		font-weight: var(--font-bold);
-		color: var(--color-gray-900);
-		line-height: 1.2;
-		margin: 0 0 1rem;
+		font-size: clamp(2rem, 1.25rem + 3.5vw, 3.75rem);
+		font-weight: var(--font-extrabold);
+		background: linear-gradient(135deg,
+			var(--color-gray-900),
+			var(--color-primary-400) 50%,
+			var(--color-secondary-500));
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+		line-height: 1.1;
+		letter-spacing: -0.025em;
+		margin: 0 0 1.25rem;
+		max-width: 30rem;
+		margin-left: auto;
+		margin-right: auto;
 	}
 
 	.cta__subtitle {
 		font-size: var(--text-lg);
-		color: var(--color-gray-600);
-		max-width: 36rem;
-		margin: 0 auto 2rem;
+		color: var(--color-gray-500);
+		max-width: 38rem;
+		margin: 0 auto 2.5rem;
+		line-height: var(--leading-relaxed);
+	}
+
+	.cta__actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		justify-content: center;
 	}
 
 	.cta__btn {
@@ -108,4 +257,5 @@ const APP_URL = "https://app.academ.my";
 		align-items: center;
 		gap: 0.5rem;
 	}
+
 </style>

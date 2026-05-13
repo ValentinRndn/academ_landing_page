@@ -40,7 +40,6 @@ const t = useTranslations(locale);
 			<article class="how__step how__step--purple" data-animate data-delay="0">
 				<div class="how__step-marker" aria-hidden="true">
 					<span class="how__step-number">01</span>
-					<span class="how__step-pulse"></span>
 				</div>
 
 				<div class="how__step-content">
@@ -52,41 +51,57 @@ const t = useTranslations(locale);
 
 					<div class="how__step-visual">
 						<div class="how__visual-glow how__visual-glow--purple" aria-hidden="true"></div>
-						<div class="how__stats-card glass">
-							<div class="how__stats-row">
-								<div class="how__stats-icon">
-									<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-										<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-										<circle cx="9" cy="7" r="4"></circle>
-										<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-										<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+						<div class="how__profile-card glass">
+							<div class="how__profile-head">
+								<div class="how__profile-icon">
+									<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+										<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+										<circle cx="12" cy="7" r="4"></circle>
 									</svg>
 								</div>
-								<span class="how__stats-label">{t("landing.totalUsers")}</span>
+								<span class="how__profile-title">Customize your profile</span>
 							</div>
-							<div class="how__stats-figure">
-								<span class="how__stats-number">20K+</span>
-								<span class="how__stats-tag">Users</span>
-							</div>
-							<div class="how__stats-rows">
-								<div class="how__stats-line">
-									<span>{t("landing.monthlyUsers")}</span>
-									<strong>1K+</strong>
+
+							<div class="how__profile-block">
+								<span class="how__profile-label">Subjects</span>
+								<div class="how__profile-chips">
+									<span class="how__chip how__chip--active">
+										<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+										Mathematics
+									</span>
+									<span class="how__chip how__chip--active">
+										<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+										Physics
+									</span>
+									<span class="how__chip">Chemistry</span>
+									<span class="how__chip">English</span>
 								</div>
-								<div class="how__stats-line">
-									<span>{t("landing.yearlyUsers")}</span>
-									<strong>10K+</strong>
+							</div>
+
+							<div class="how__profile-block">
+								<span class="how__profile-label">Level</span>
+								<div class="how__profile-radios">
+									<span class="how__radio">
+										<span class="how__radio-dot"></span>
+										Beginner
+									</span>
+									<span class="how__radio how__radio--active">
+										<span class="how__radio-dot"></span>
+										Intermediate
+									</span>
+									<span class="how__radio">
+										<span class="how__radio-dot"></span>
+										Advanced
+									</span>
 								</div>
 							</div>
-							<div class="how__stats-avatars">
-								<div class="how__avatar how__avatar--1"></div>
-								<div class="how__avatar how__avatar--2"></div>
-								<div class="how__avatar how__avatar--3"></div>
-								<div class="how__avatar how__avatar--more">+5</div>
-								<span class="how__stats-active">
-									<span class="how__stats-dot"></span>
-									{t("landing.activeNow")}
-								</span>
+
+							<div class="how__profile-cta">
+								Continue
+								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+									<line x1="5" y1="12" x2="19" y2="12"></line>
+									<polyline points="12 5 19 12 12 19"></polyline>
+								</svg>
 							</div>
 						</div>
 					</div>
@@ -97,7 +112,6 @@ const t = useTranslations(locale);
 			<article class="how__step how__step--pink how__step--reverse" data-animate data-delay="150">
 				<div class="how__step-marker" aria-hidden="true">
 					<span class="how__step-number">02</span>
-					<span class="how__step-pulse"></span>
 				</div>
 
 				<div class="how__step-content">
@@ -112,7 +126,9 @@ const t = useTranslations(locale);
 						<div class="how__connect-card glass">
 							<div class="how__connect">
 								<div class="how__connect-side">
-									<div class="how__connect-bubble how__connect-bubble--primary">T</div>
+									<div class="how__connect-photo how__connect-photo--teacher">
+										<img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop&crop=faces&auto=format&q=80" alt="" loading="lazy" />
+									</div>
 									<span>{t("landing.teacher")}</span>
 								</div>
 								<div class="how__connect-link" aria-hidden="true">
@@ -125,13 +141,11 @@ const t = useTranslations(locale);
 									<div class="how__connect-line"></div>
 								</div>
 								<div class="how__connect-side">
-									<div class="how__connect-bubble">S</div>
+									<div class="how__connect-photo how__connect-photo--student">
+										<img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&h=200&fit=crop&crop=faces&auto=format&q=80" alt="" loading="lazy" />
+									</div>
 									<span>{t("landing.student")}</span>
 								</div>
-							</div>
-							<div class="how__connect-meta">
-								<span>{t("landing.integrationsWithPlatforms")}</span>
-								<strong>20+</strong>
 							</div>
 						</div>
 					</div>
@@ -229,7 +243,7 @@ const t = useTranslations(locale);
 		gap: 2rem;
 	}
 
-	/* Vertical connector running through the markers */
+	/* Vertical connector running down the left side */
 	.how__connector {
 		position: absolute;
 		top: 3rem;
@@ -251,10 +265,6 @@ const t = useTranslations(locale);
 		);
 	}
 
-	@media (min-width: 768px) {
-		.how__connector { left: 50%; transform: translateX(-50%); }
-	}
-
 	/* ----- Single step ----- */
 	.how__step {
 		position: relative;
@@ -262,10 +272,6 @@ const t = useTranslations(locale);
 		grid-template-columns: 3rem 1fr;
 		gap: 1rem;
 		align-items: stretch;
-	}
-
-	@media (min-width: 768px) {
-		.how__step { grid-template-columns: 1fr; gap: 0; }
 	}
 
 	.how__step-marker {
@@ -282,20 +288,12 @@ const t = useTranslations(locale);
 		backdrop-filter: blur(12px);
 		-webkit-backdrop-filter: blur(12px);
 		z-index: 2;
+		margin-top: 1.5rem;
 	}
 
 	.how__step--pink .how__step-marker {
 		background: rgba(236, 72, 153, 0.12);
 		border-color: rgba(236, 72, 153, 0.45);
-	}
-
-	@media (min-width: 768px) {
-		.how__step-marker {
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-		}
 	}
 
 	.how__step-number {
@@ -306,24 +304,6 @@ const t = useTranslations(locale);
 		background-clip: text;
 		color: transparent;
 		letter-spacing: -0.02em;
-	}
-
-	.how__step-pulse {
-		position: absolute;
-		inset: -4px;
-		border-radius: 50%;
-		border: 1.5px solid rgba(168, 85, 247, 0.5);
-		opacity: 0;
-		animation: pulse-ring 2.5s ease-out infinite;
-	}
-
-	.how__step--pink .how__step-pulse {
-		border-color: rgba(236, 72, 153, 0.5);
-	}
-
-	@keyframes pulse-ring {
-		0% { opacity: 0.7; transform: scale(0.85); }
-		100% { opacity: 0; transform: scale(1.4); }
 	}
 
 	/* Content row : text + visual side by side */
@@ -342,6 +322,7 @@ const t = useTranslations(locale);
 		isolation: isolate;
 		overflow: hidden;
 		position: relative;
+		min-width: 0;
 	}
 
 	.how__step--pink .how__step-content {
@@ -372,13 +353,9 @@ const t = useTranslations(locale);
 			gap: 3rem;
 			padding: 2.5rem 3rem;
 			align-items: center;
-			width: calc(50% - 2rem);
-			margin-right: auto;
 		}
 
 		.how__step--reverse .how__step-content {
-			margin-left: auto;
-			margin-right: 0;
 			grid-template-areas: "visual text";
 		}
 
@@ -386,7 +363,7 @@ const t = useTranslations(locale);
 		.how__step--reverse .how__step-visual { grid-area: visual; }
 	}
 
-	.how__step-text { position: relative; z-index: 1; }
+	.how__step-text { position: relative; z-index: 1; min-width: 0; }
 
 	.how__step-tag {
 		display: inline-block;
@@ -421,6 +398,7 @@ const t = useTranslations(locale);
 		justify-content: center;
 		align-items: center;
 		z-index: 1;
+		min-width: 0;
 	}
 
 	.how__visual-glow {
@@ -440,137 +418,147 @@ const t = useTranslations(locale);
 		background: radial-gradient(circle, rgba(236, 72, 153, 0.4), transparent 65%);
 	}
 
-	/* ----- Stats card ----- */
-	.how__stats-card {
+	/* ----- Profile customization card ----- */
+	.how__profile-card {
 		position: relative;
 		z-index: 1;
 		width: 100%;
 		max-width: 22rem;
 		padding: 1.25rem;
 		border-radius: var(--radius-xl);
-	}
-
-	.how__stats-row {
-		display: flex;
-		align-items: center;
-		gap: 0.625rem;
-		margin-bottom: 0.75rem;
-	}
-
-	.how__stats-icon {
-		width: 2.25rem;
-		height: 2.25rem;
-		border-radius: var(--radius-md);
-		background: var(--color-primary-100);
-		color: var(--color-primary-600);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.how__stats-label {
-		font-size: var(--text-sm);
-		font-weight: var(--font-semibold);
-		color: var(--color-gray-900);
-	}
-
-	.how__stats-figure {
-		display: flex;
-		align-items: baseline;
-		gap: 0.5rem;
-		margin-bottom: 0.75rem;
-	}
-
-	.how__stats-number {
-		font-size: 1.875rem;
-		font-weight: var(--font-bold);
-		color: var(--color-gray-900);
-	}
-
-	.how__stats-tag {
-		font-size: 0.75rem;
-		font-weight: var(--font-medium);
-		color: var(--color-primary-600);
-		background: var(--color-primary-50);
-		padding: 0.125rem 0.5rem;
-		border-radius: var(--radius-full);
-	}
-
-	.how__stats-rows {
 		display: flex;
 		flex-direction: column;
-		gap: 0.375rem;
-		margin-bottom: 1rem;
+		gap: 1rem;
 	}
 
-	.how__stats-line {
-		display: flex;
-		justify-content: space-between;
-		font-size: 0.75rem;
-		color: var(--color-gray-500);
-	}
-
-	.how__stats-line strong {
-		color: var(--color-gray-900);
-		background: rgba(255, 255, 255, 0.6);
-		padding: 0.125rem 0.5rem;
-		border-radius: var(--radius-md);
-		font-weight: var(--font-semibold);
-	}
-
-	.how__stats-avatars {
+	.how__profile-head {
 		display: flex;
 		align-items: center;
 		gap: 0.625rem;
-		padding-top: 0.75rem;
-		border-top: 1px solid rgba(255, 255, 255, 0.5);
 	}
 
-	.how__avatar {
+	.how__profile-icon {
 		width: 2rem;
 		height: 2rem;
-		border-radius: var(--radius-full);
-		border: 2px solid rgba(255, 255, 255, 0.85);
-		margin-left: -0.375rem;
-		box-shadow: var(--shadow-sm);
-	}
-
-	.how__avatar:first-child { margin-left: 0; }
-	.how__avatar--1 { background: linear-gradient(135deg, var(--color-primary-400), var(--color-primary-600)); }
-	.how__avatar--2 { background: linear-gradient(135deg, var(--color-primary-300), var(--color-primary-500)); }
-	.how__avatar--3 { background: linear-gradient(135deg, #c084fc, #7e22ce); }
-
-	.how__avatar--more {
-		background: rgba(255, 255, 255, 0.85);
-		color: var(--color-gray-700);
-		font-size: 0.65rem;
-		font-weight: var(--font-bold);
+		border-radius: var(--radius-md);
+		background: rgba(168, 85, 247, 0.15);
+		border: 1px solid rgba(168, 85, 247, 0.3);
+		color: var(--color-primary-500);
 		display: flex;
 		align-items: center;
 		justify-content: center;
 	}
 
-	.how__stats-active {
+	.how__profile-title {
+		font-size: 0.875rem;
+		font-weight: var(--font-bold);
+		color: var(--color-gray-900);
+		letter-spacing: -0.01em;
+	}
+
+	.how__profile-block {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.how__profile-label {
+		font-size: 0.7rem;
+		font-weight: var(--font-bold);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-gray-500);
+	}
+
+	.how__profile-chips {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.375rem;
+	}
+
+	.how__chip {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.4rem;
-		font-size: 0.75rem;
+		gap: 0.3rem;
+		padding: 0.35rem 0.625rem;
+		border-radius: var(--radius-full);
+		font-size: 0.72rem;
+		font-weight: var(--font-medium);
 		color: var(--color-gray-500);
-		margin-left: 0.25rem;
+		background: rgba(255, 255, 255, 0.03);
+		border: 1px solid rgba(168, 85, 247, 0.18);
+		transition: all 0.2s ease;
 	}
 
-	.how__stats-dot {
-		width: 0.5rem;
-		height: 0.5rem;
+	.how__chip--active {
+		color: var(--color-primary-300);
+		background: rgba(168, 85, 247, 0.15);
+		border-color: rgba(168, 85, 247, 0.5);
+	}
+
+	.how__profile-radios {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.375rem;
+	}
+
+	.how__radio {
+		flex: 1 1 5rem;
+		min-width: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.35rem;
+		padding: 0.45rem 0.5rem;
+		border-radius: var(--radius-md);
+		font-size: 0.7rem;
+		font-weight: var(--font-medium);
+		color: var(--color-gray-500);
+		background: rgba(255, 255, 255, 0.02);
+		border: 1px solid rgba(168, 85, 247, 0.15);
+		white-space: nowrap;
+	}
+
+	.how__radio--active {
+		color: var(--color-primary-300);
+		background: rgba(168, 85, 247, 0.12);
+		border-color: rgba(168, 85, 247, 0.5);
+	}
+
+	.how__radio-dot {
+		width: 0.7rem;
+		height: 0.7rem;
 		border-radius: 50%;
-		background: #4ade80;
-		box-shadow: 0 0 8px rgba(74, 222, 128, 0.7);
-		animation: pulse-dot 2s ease-in-out infinite;
+		border: 1.5px solid rgba(168, 85, 247, 0.4);
+		flex-shrink: 0;
+		position: relative;
 	}
 
-	@keyframes pulse-dot {
-		0%, 100% { opacity: 1; }
-		50% { opacity: 0.4; }
+	.how__radio--active .how__radio-dot {
+		border-color: var(--color-primary-400);
+	}
+
+	.how__radio--active .how__radio-dot::after {
+		content: "";
+		position: absolute;
+		inset: 2px;
+		border-radius: 50%;
+		background: var(--color-primary-400);
+	}
+
+	.how__profile-cta {
+		margin-top: 0.25rem;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.4rem;
+		padding: 0.6rem 1rem;
+		border-radius: var(--radius-md);
+		background: linear-gradient(135deg, var(--color-primary-500), var(--color-secondary-500));
+		color: white;
+		font-size: 0.8rem;
+		font-weight: var(--font-semibold);
+		box-shadow: 0 6px 20px -10px rgba(168, 85, 247, 0.6);
 	}
 
 	/* ----- Connect card ----- */
@@ -600,24 +588,26 @@ const t = useTranslations(locale);
 		color: var(--color-gray-600);
 	}
 
-	.how__connect-bubble {
-		width: 3.5rem;
-		height: 3.5rem;
-		border-radius: var(--radius-xl);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 1.25rem;
-		font-weight: var(--font-bold);
-		background: rgba(255, 255, 255, 0.65);
-		backdrop-filter: blur(16px);
-		color: var(--color-gray-700);
+	.how__connect-photo {
+		width: 3.75rem;
+		height: 3.75rem;
+		border-radius: 50%;
+		overflow: hidden;
+		position: relative;
+		border: 2px solid rgba(168, 85, 247, 0.4);
+		box-shadow: 0 6px 20px -8px rgba(168, 85, 247, 0.4);
 	}
 
-	.how__connect-bubble--primary {
-		background: rgba(168, 85, 247, 0.15);
-		border: 1px solid rgba(168, 85, 247, 0.4);
-		color: var(--color-primary-700);
+	.how__connect-photo--student {
+		border-color: rgba(236, 72, 153, 0.4);
+		box-shadow: 0 6px 20px -8px rgba(236, 72, 153, 0.4);
+	}
+
+	.how__connect-photo img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
 	}
 
 	.how__connect-link {
@@ -644,23 +634,11 @@ const t = useTranslations(locale);
 		color: var(--color-secondary-500);
 	}
 
-	.how__connect-meta {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-top: 1.25rem;
-		padding-top: 1rem;
-		border-top: 1px solid rgba(255, 255, 255, 0.5);
-		font-size: var(--text-sm);
-		color: var(--color-gray-500);
-	}
-
-	.how__connect-meta strong {
-		color: var(--color-secondary-500);
-		font-weight: var(--font-bold);
-	}
-
-	@media (max-width: 480px) {
-		.how__step-content { padding: 1.5rem; }
+	@media (max-width: 640px) {
+		.how__step { grid-template-columns: 2.5rem 1fr; gap: 0.75rem; }
+		.how__step-marker { width: 2.5rem; height: 2.5rem; }
+		.how__step-content { padding: 1.5rem 1.25rem; }
+		.how__profile-radios { flex-direction: column; }
+		.how__radio { flex: 1 1 auto; justify-content: flex-start; }
 	}
 </style>
